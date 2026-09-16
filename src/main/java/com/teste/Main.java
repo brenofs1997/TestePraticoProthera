@@ -34,7 +34,13 @@ public class Main {
                 f -> System.out.println("Nome: " + f.getNome() +" | Nascimento:"+f.aniversarioFormatado()));
 
          util.obterMaisVelho(funcionarios).ifPresentOrElse(f -> System.out.println("Funcionário mais velho: "
-                + f.getNome() + " - Nascimento: " + f.getNascimento()+ " - Idade: " + f.calculaIdade()),
+                + f.nomeIdade()),
                  () -> System.out.println("Nenhum funcionário encontrado.") );
+
+        List<Funcionario> funcionariosOrdem= util.funcionariosPorOrdemAlfabetica(funcionarios);
+        System.out.println("Funcionários por Ordem Alfabetica:");
+        funcionariosOrdem.forEach(System.out::println);
+        System.out.println("Total dos Salarios dos Funcionarios: "+util.formataValorMoeda(util.valorTotalSalarios(funcionarios)));
+
     }
 }

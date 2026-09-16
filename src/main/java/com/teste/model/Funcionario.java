@@ -52,6 +52,9 @@ public class Funcionario extends Pessoa{
     public Long calculaIdade() {
         return ChronoUnit.YEARS.between(getNascimento(), LocalDate.now());
     }
+    public String nomeIdade() {
+        return String.format("Nome: %-10s | Idade: %s ",getNome(), calculaIdade());
+    }
     @Override
     public String toString() {
 

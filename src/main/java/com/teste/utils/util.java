@@ -1,13 +1,17 @@
 package com.teste.utils;
 
 import com.teste.model.Funcionario;
+import com.teste.model.Pessoa;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class util {
+    private static final NumberFormat fmtMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
     public static List<Funcionario>  popular() {
 
       return new ArrayList<>(Arrays.asList(
@@ -36,12 +40,24 @@ public class util {
                 .peek( funcionario -> funcionario.reajusteSalarial(aumento)).toList();
 
     }
+    public static String  formataValorMoeda(BigDecimal valor){
+
+        return fmtMoeda.format(valor);
+    }
+
+    public static BigDecimal valorTotalSalarios(List<Funcionario> funcionarios){
+        return funcionarios.stream()
+                .map(Funcionario::getSalario)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, java.math.RoundingMode.HALF_UP);
+    }
 
     public static Map<String, List<Funcionario>> funcionariosPorFuncao(List<Funcionario> funcionarios ){
 
         return funcionarios.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
 
     }
+
     public static List<Funcionario> filtraMesAniversarioFuncionario(List<Funcionario> funcionarios, int... meses ){
         List<Integer> mesesDesejados = List.of(
                 Arrays.stream(meses).boxed().toArray(Integer[]::new)
@@ -56,5 +72,9 @@ public class util {
         return funcionarios.stream()
                 .min(Comparator.comparing(Funcionario::getNascimento));
     }
+    public static  List<Funcionario> funcionariosPorOrdemAlfabetica(List<Funcionario> funcionarios ){
 
+        return funcionarios.stream().sorted(Comparator.comparing(Funcionario::getNome)).toList();
+
+    }
 }
