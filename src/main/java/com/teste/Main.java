@@ -1,12 +1,40 @@
 package com.teste;
 
+import com.teste.model.Funcionario;
+import com.teste.utils.util;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) {
 
-        System.out.printf("Hello and welcome!");
+        System.out.println("Lista de Funcionarios:");
+        List<Funcionario> funcionarios = util.popular();
+        String nome = "João";
 
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("i = " + i);
-        }
+        funcionarios = util.removeFuncionario(funcionarios, nome);
+        funcionarios.forEach(System.out::println);
+
+        funcionarios = util.reajusteSalarial(funcionarios, new BigDecimal("0.10"));
+        System.out.println("Lista de Funcionarios com Reajuste de 10%:");
+        funcionarios.forEach(System.out::println);
+
+        Map<String, List<Funcionario>> funcionariosPorFuncao  = util.funcionariosPorFuncao(funcionarios);
+        System.out.println("Lista de Funcionarios por função:");
+        funcionariosPorFuncao.forEach((funcao, lista) -> {
+            System.out.println("\n" + funcao.toUpperCase() );
+            lista.forEach(f -> System.out.println("  - " + f.getNome()));
+        });
+
+        List<Funcionario> funcionariosPorMes = util.filtraMesAniversarioFuncionario(funcionarios, 10, 12);
+        System.out.println("Funcionários que fazem aniversário no mês 10 e 12.:");
+        funcionariosPorMes.forEach(
+                f -> System.out.println("Nome: " + f.getNome() +" | Nascimento:"+f.aniversarioFormatado()));
+
+         util.obterMaisVelho(funcionarios).ifPresentOrElse(f -> System.out.println("Funcionário mais velho: "
+                + f.getNome() + " - Nascimento: " + f.getNascimento()+ " - Idade: " + f.calculaIdade()),
+                 () -> System.out.println("Nenhum funcionário encontrado.") );
     }
 }
