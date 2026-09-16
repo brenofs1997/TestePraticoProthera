@@ -34,10 +34,10 @@ public class util {
 
     }
 
-    public static List<Funcionario> reajusteSalarial(List<Funcionario> funcionarios, BigDecimal aumento ){
+    public static List<Funcionario> reajusteSalarial(List<Funcionario> funcionarios, BigDecimal porcentagem ){
 
         return  funcionarios.stream()
-                .peek( funcionario -> funcionario.reajusteSalarial(aumento)).toList();
+                .peek( funcionario -> funcionario.reajusteSalarial(porcentagem)).toList();
 
     }
 
