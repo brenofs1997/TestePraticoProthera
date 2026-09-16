@@ -40,6 +40,7 @@ public class util {
                 .peek( funcionario -> funcionario.reajusteSalarial(aumento)).toList();
 
     }
+
     public static String  formataValorMoeda(BigDecimal valor){
 
         return fmtMoeda.format(valor);

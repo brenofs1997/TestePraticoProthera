@@ -37,10 +37,20 @@ public class Main {
                 + f.nomeIdade()),
                  () -> System.out.println("Nenhum funcionário encontrado.") );
 
-        List<Funcionario> funcionariosOrdem= util.funcionariosPorOrdemAlfabetica(funcionarios);
+        List<Funcionario> funcionariosOrdem = util.funcionariosPorOrdemAlfabetica(funcionarios);
         System.out.println("Funcionários por Ordem Alfabetica:");
         funcionariosOrdem.forEach(System.out::println);
+
         System.out.println("Total dos Salarios dos Funcionarios: "+util.formataValorMoeda(util.valorTotalSalarios(funcionarios)));
 
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");
+
+        System.out.println("Quant. de Salários Mínimos ganhos por Funcionários:");
+        funcionarios.forEach(f ->
+                System.out.println("Nome: " + f.getNome() +
+                        " | Quant. de Salários Mínimos: " + f.calculaSalariosMin(salarioMinimo))
+        );
+
     }
+
 }

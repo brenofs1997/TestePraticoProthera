@@ -49,9 +49,14 @@ public class Funcionario extends Pessoa{
     public String aniversarioFormatado() {
         return getNascimento().format(fmtData);
     }
+
     public Long calculaIdade() {
         return ChronoUnit.YEARS.between(getNascimento(), LocalDate.now());
     }
+    public BigDecimal calculaSalariosMin(BigDecimal salarioMin) {
+        return this.getSalario().divide(salarioMin, java.math.RoundingMode.HALF_UP);
+    }
+
     public String nomeIdade() {
         return String.format("Nome: %-10s | Idade: %s ",getNome(), calculaIdade());
     }
